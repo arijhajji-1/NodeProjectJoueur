@@ -1,0 +1,53 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jeux</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    
+    <form id="form" action="">
+      <p>Nom Partie</p><input id="input"  />
+      <p>ID Joueur 1</p> <input id="input2"/>
+      <p>ID joueur2</p> <input id="input3"/>
+      <button>Envoyer</button>
+      <button>Afficher Stat</button>
+      <div id="message"></div>
+  
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      var message = document.getElementById("message");
+
+      var input = document.getElementById("input");
+      var input2 = document.getElementById("input2");
+      var input3 = document.getElementById("input3");
+        var form = document.getElementById("form");
+        form.addEventListener("submit", function(e){
+          e.preventDefault();
+          socket.emit("jeux", {nom: input.value, joueur_1: input2.value, joueur_2: input3.value});
+        });
+        
+
+        socket.on("jeux", function(data){
+            message.innerHTML += "<p>"+ "Partie: "+" "+data.nom+"<br>"+" ID joueur 1: " + " "+data.joueur_1 +"<br> " +"ID joueur 2: " +" "+ data.joueur_2 + "</p>";
+            });
+
+
+
+
+
+
+
+
+     
+
+   
+    </script>
+  </body>
+</html>
